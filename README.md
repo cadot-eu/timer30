@@ -144,6 +144,23 @@ pip install notify2
 Modifiez le script `script_timer.py` pour adapter le comportement du timer ou de l'action à vos besoins.
 
 ### Auteur
-
 Michael
-# timer30
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## Issues
+
+If you encounter any problems, please use the [GitHub Issues](https://github.com/yourusername/timer30/issues) page.
+
+## Repository
+
+Find the source code and updates at: [https://github.com/yourusername/timer30](https://github.com/yourusername/timer30)
+Find the source code and updates at: [https://github.com/yourusername/timer30](https://github.com/yourusername/timer30)
