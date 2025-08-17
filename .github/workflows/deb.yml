@@ -18,25 +18,21 @@ jobs:
         mkdir -p pkg/usr/bin
         cp screen_watcher pkg/usr/bin/
         mkdir -p pkg/DEBIAN
-        cat <<EOF > pkg/DEBIAN/control
-Package: timer30
-Version: 1.0.0
-Section: utils
-Priority: optional
-Architecture: amd64
-Depends: zenity, xprintidle, libx11-6
-Maintainer: Your Name <your@email.com>
-Description: timer30 - Stay aware of your computer usage time.
-EOF
+        (echo "Package: timer30"
+         echo "Version: 1.0.0"
+         echo "Section: utils"
+         echo "Priority: optional"
+         echo "Architecture: amd64"
+         echo "Depends: zenity, xprintidle, libx11-6"
+         echo "Maintainer: Your Name <your@email.com>"
+         echo "Description: timer30 - Stay aware of your computer usage time.") > pkg/DEBIAN/control
         mkdir -p pkg/usr/share/applications
-        cat <<EOF > pkg/usr/share/applications/timer30.desktop
-[Desktop Entry]
-Type=Application
-Name=timer30
-Exec=/usr/bin/screen_watcher
-X-GNOME-Autostart-enabled=true
-Comment=Stay aware of your computer usage time.
-EOF
+        (echo "[Desktop Entry]"
+         echo "Type=Application"
+         echo "Name=timer30"
+         echo "Exec=/usr/bin/screen_watcher"
+         echo "X-GNOME-Autostart-enabled=true"
+         echo "Comment=Stay aware of your computer usage time.") > pkg/usr/share/applications/timer30.desktop
     - name: Build DEB
       run: dpkg-deb --build pkg timer30.deb
     - name: Upload DEB artifact
