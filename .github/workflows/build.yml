@@ -8,13 +8,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y libx11-dev zenity xprintidle
-      - name: Build binary
-        run: gcc -O2 -Wall screen_watcher.c -o screen_watcher $(pkg-config --cflags --libs x11)
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y libx11-dev zenity xprintidle
+    - name: Build binary
+      run: gcc -O2 -Wall screen_watcher.c -o screen_watcher $(pkg-config --cflags --libs x11)
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: screen_watcher
-          path: screen_watcher
+        uses: actions/upload-artifact@v4
+      with:
+        name: screen_watcher
+        path: screen_watcher

@@ -8,23 +8,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y libx11-dev zenity xprintidle dpkg-dev
-      - name: Build binary
-        run: gcc -O2 -Wall screen_watcher.c -o screen_watcher $(pkg-config --cflags --libs x11)
-      - name: Create DEB package structure
-        run: |
-          mkdir -p pkg/usr/bin
-          cp screen_watcher pkg/usr/bin/
-          mkdir -p pkg/DEBIAN
-          echo "Package: timer30\nVersion: 1.0.0\nSection: utils\nPriority: optional\nArchitecture: amd64\nDepends: zenity, xprintidle, libx11-6\nMaintainer: Your Name <your@email.com>\nDescription: timer30 - Stay aware of your computer usage time." > pkg/DEBIAN/control
-          mkdir -p pkg/usr/share/applications
-          echo "[Desktop Entry]\nType=Application\nName=timer30\nExec=/usr/bin/screen_watcher\nX-GNOME-Autostart-enabled=true\nComment=Stay aware of your computer usage time." > pkg/usr/share/applications/timer30.desktop
-      - name: Build DEB
-        run: dpkg-deb --build pkg timer30.deb
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y libx11-dev zenity xprintidle dpkg-dev
+    - name: Build binary
+      run: gcc -O2 -Wall screen_watcher.c -o screen_watcher $(pkg-config --cflags --libs x11)
+    - name: Create DEB package structure
+      run: |
+        mkdir -p pkg/usr/bin
+        cp screen_watcher pkg/usr/bin/
+        mkdir -p pkg/DEBIAN
+        echo "Package: timer30\nVersion: 1.0.0\nSection: utils\nPriority: optional\nArchitecture: amd64\nDepends: zenity, xprintidle, libx11-6\nMaintainer: Your Name <your@email.com>\nDescription: timer30 - Stay aware of your computer usage time." > pkg/DEBIAN/control
+        mkdir -p pkg/usr/share/applications
+        echo "[Desktop Entry]\nType=Application\nName=timer30\nExec=/usr/bin/screen_watcher\nX-GNOME-Autostart-enabled=true\nComment=Stay aware of your computer usage time." > pkg/usr/share/applications/timer30.desktop
+    - name: Build DEB
+      run: dpkg-deb --build pkg timer30.deb
       - name: Upload DEB artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: timer30.deb
-          path: timer30.deb
+        uses: actions/upload-artifact@v4
+      with:
+        name: timer30.deb
+        path: timer30.deb
