@@ -1,166 +1,81 @@
-
-# sleep-monitor.service
+# timer30
 
 ## English
 
-This project allows you to start a timer or a custom action after waking up (suspend) on a Linux system, using a systemd service and a Python script.
-
-### Main files
-
-- `script_timer.py`: Python script executed after waking up.
-- `/etc/systemd/system/sleep-monitor.service`: Example systemd service file (see below).
-
-### Example systemd service file
-
-```ini
-[Unit]
-Description=Timer after wake from suspend
-After=suspend.target
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/python3 /home/michael/git/timer30/script_timer.py
-Restart=on-failure
-
-[Install]
-WantedBy=suspend.target
-```
+**timer30** is a small program to help you stay aware of your computer usage time. It displays a visible notification after a period of inactivity, reminding you to be vigilant about your time spent on the computer.
 
 ### Installation
 
-1. Copy the service file to `/etc/systemd/system/`.
+1. Install dependencies:
+   - `zenity` (for notifications)
+   - `xprintidle` (for inactivity detection)
+   - `gcc` (for compilation)
+   - `libx11-dev` (for X11 support)
 
-2. Reload systemd configuration:
-
+   On Ubuntu/Debian:
    ```bash
-   sudo systemctl daemon-reload
+   sudo apt install zenity xprintidle gcc libx11-dev
    ```
 
-3. Enable the service:
-
+2. Compile the program:
    ```bash
-   sudo systemctl enable sleep-monitor.service
+   gcc -O2 -Wall screen_watcher.c -o screen_watcher $(pkg-config --cflags --libs x11)
    ```
 
-4. Check the status:
+3. Configure the inactivity time:
+   - The config file is at `~/.config/timer30.conf`.
+   - It is created automatically at first launch with `idle_minutes=1` (1 minute).
+   - Edit this file to set your preferred time (in minutes):
+     ```
+     idle_minutes=30
+     ```
 
-   ```bash
-   systemctl status sleep-monitor.service
-   ```
+### Autostart in XFCE
 
-### Customization
-
-
-### Notifications
-
-To enable desktop notifications from the Python script, install the following packages:
-
-- `libnotify-bin` (for the `notify-send` command)
-- Python package: `notify2` (optional, for Python-based notifications)
-
-Install with:
-
-```bash
-sudo apt install libnotify-bin
-pip install notify2
-```
-
-### Customization
-
-Edit the `script_timer.py` script to adapt the timer or action to your needs.
-
-### Author
-
-Michael
+1. Open XFCE Settings > Session and Startup > Application Autostart.
+2. Click "Add" and fill in:
+   - Name: `timer30`
+   - Command: `/path/to/screen_watcher`
+   - Description: `Stay aware of your computer usage time.`
+3. Save. The program will start automatically at each session.
 
 ---
 
 ## Français
 
-Ce projet permet de lancer un timer ou une action personnalisée après la sortie de veille (suspend) sur un système Linux, grâce à un service systemd et un script Python.
-
-### Fichiers principaux
-
-- `script_timer.py` : Script Python exécuté à la sortie de veille.
-- `/etc/systemd/system/sleep-monitor.service` : Fichier de service systemd (exemple ci-dessous).
-
-### Exemple de fichier service systemd
-
-```ini
-[Unit]
-Description=Timer après sortie de veille
-After=suspend.target
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/python3 /home/michael/git/timer30/script_timer.py
-Restart=on-failure
-
-[Install]
-WantedBy=suspend.target
-```
+**timer30** est un petit programme pour vous aider à rester vigilant sur votre temps passé sur l’ordinateur. Il affiche une notification visible après une période d’inactivité, pour vous rappeler de faire attention à votre temps d’écran.
 
 ### Installation
 
-1. Copier le fichier de service dans `/etc/systemd/system/`.
+1. Installez les dépendances :
+   - `zenity` (pour les notifications)
+   - `xprintidle` (pour la détection d’inactivité)
+   - `gcc` (pour la compilation)
+   - `libx11-dev` (pour le support X11)
 
-2. Recharger la configuration systemd :
-
+   Sur Ubuntu/Debian :
    ```bash
-   sudo systemctl daemon-reload
+   sudo apt install zenity xprintidle gcc libx11-dev
    ```
 
-3. Activer le service :
-
+2. Compilez le programme :
    ```bash
-   sudo systemctl enable sleep-monitor.service
+   gcc -O2 -Wall screen_watcher.c -o screen_watcher $(pkg-config --cflags --libs x11)
    ```
 
-4. Vérifier le statut :
+3. Configurez le temps d’inactivité :
+   - Le fichier de configuration est `~/.config/timer30.conf`.
+   - Il est créé automatiquement au premier lancement avec `idle_minutes=1` (1 minute).
+   - Modifiez ce fichier pour définir votre temps préféré (en minutes) :
+     ```
+     idle_minutes=30
+     ```
 
-   ```bash
-   systemctl status sleep-monitor.service
-   ```
+### Démarrage automatique sous XFCE
 
-### Personnalisation
-
-
-### Notifications
-
-Pour activer les notifications sur le bureau depuis le script Python, installez :
-
-- `libnotify-bin` (pour la commande `notify-send`)
-- Le paquet Python : `notify2` (optionnel, pour les notifications Python)
-
-Installez avec :
-
-```bash
-sudo apt install libnotify-bin
-pip install notify2
-```
-
-### Personnalisation
-
-Modifiez le script `script_timer.py` pour adapter le comportement du timer ou de l'action à vos besoins.
-
-### Auteur
-Michael
-
----
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## Issues
-
-If you encounter any problems, please use the [GitHub Issues](https://github.com/yourusername/timer30/issues) page.
-
-## Repository
-
-Find the source code and updates at: [https://github.com/yourusername/timer30](https://github.com/yourusername/timer30)
-Find the source code and updates at: [https://github.com/yourusername/timer30](https://github.com/yourusername/timer30)
+1. Ouvrez les Paramètres XFCE > Session et démarrage > Démarrage automatique des applications.
+2. Cliquez sur "Ajouter" et remplissez :
+   - Nom : `timer30`
+   - Commande : `/chemin/vers/screen_watcher`
+   - Description : `Restez vigilant sur votre temps d’ordinateur.`
+3. Enregistrez. Le programme se lancera automatiquement à chaque session.

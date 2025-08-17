@@ -1,0 +1,9 @@
+Package: timer30
+Version: 1.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: zenity, xprintidle, libx11-6
+Maintainer: michael <https://github.com/michael>
+Description: timer30 - Stay aware of your computer usage time.
+ This program displays a notification after a configurable period of inactivity to help users be mindful of their computer usage time. It is designed for XFCE and other Linux desktops, and can be configured via ~/.config/timer30.conf. The notification is shown using zenity and the inactivity is detected using xprintidle.
