@@ -23,8 +23,8 @@ jobs:
         echo "[Desktop Entry]\nType=Application\nName=timer30\nExec=/usr/bin/screen_watcher\nX-GNOME-Autostart-enabled=true\nComment=Stay aware of your computer usage time." > pkg/usr/share/applications/timer30.desktop
     - name: Build DEB
       run: dpkg-deb --build pkg timer30.deb
-      - name: Upload DEB artifact
-        uses: actions/upload-artifact@v4
+    - name: Upload DEB artifact
+      uses: actions/upload-artifact@v4
       with:
         name: timer30.deb
         path: timer30.deb
