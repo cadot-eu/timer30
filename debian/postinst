@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+USER_HOME=$(getent passwd $(logname) | cut -d: -f6)
+CONFIG_DIR="$USER_HOME/.config"
+CONFIG_FILE="$CONFIG_DIR/timer30.conf"
+if [ ! -d "$CONFIG_DIR" ]; then
+  mkdir -p "$CONFIG_DIR"
+fi
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "idle_minutes=1" > "$CONFIG_FILE"
+fi
+chown $(logname):$(logname) "$CONFIG_FILE"

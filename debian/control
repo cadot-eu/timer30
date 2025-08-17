@@ -1,0 +1,12 @@
+Source: timer30
+Section: utils
+Priority: optional
+Maintainer: michael <https://github.com/michael>
+Build-Depends: debhelper (>= 9), libx11-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/michael/timer30
+
+Package: timer30
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, zenity, xprintidle, libx11-6
+Description: timer30 - Stay aware of your computer usage time.

@@ -59,3 +59,12 @@ jobs:
         asset_path: timer30.deb
         asset_name: timer30.deb
         asset_content_type: application/vnd.debian.binary-package
+    - name: Build source package
+      run: |
+        sudo apt-get install -y devscripts
+        debuild -S -us -uc
+    - name: Upload source package artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: timer30-source-packages
+        path: ../timer30_*.*
